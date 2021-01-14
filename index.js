@@ -36,9 +36,9 @@ const app = new App({
 
 app.command('/info', async ({ ack, command, client }) => {
     ack()
-    const user = command.text.match(/<@(.*)\|.*>/)
-    const usergroup = command.text.match(/<\!subteam\^(.*)\|.*>/)
-    const channel = command.text.match(/<#(.*)\|.*>/)
+    const user = command.text.match(/(?:<|&lt;)@(.*)\|.*(?:>|&gt;)/)
+    const usergroup = command.text.match(/(?:<|&lt;)\!subteam\^(.*)\|.*(?:>|&gt;)/)
+    const channel = command.text.match(/(?:<|&lt;)#(.*)\|.*(?:>|&gt;)/)
     const fromID = command.text.match(/^(.).*$/)
 
     let requestedInfo = []
