@@ -39,13 +39,39 @@ app.command('/info', async ({ ack, command, client }) => {
     const user = command.text.match(/<@(.*)\|.*>/)
     const usergroup = command.text.match(/<\!subteam\^(.*)\|.*>/)
     const channel = command.text.match(/<#(.*)\|.*>/)
+    const fromID = command.text.match(/^(.).*$/)
 
     let requestedInfo = []
 
-    if (user) {
+    if (user) await buildUser(user[1])
+    else if (usergroup) await buildUsergroup(usergroup[1])
+    else if (channel) await buildChannel(channel[1])
+    else if (fromID) {
+        if (fromID[1] === "U") await buildUser(fromID[0])
+        else if (fromID[1] === "C") await buildChannel(fromID[0])
+        else if (fromID[1] === "S") await buildUsergroup(fromID[0])
+        else return await fail()
+    } else {
+        return await fail()
+    }
+
+    let build = "Info:\n"
+
+    for (const [key, value] of requestedInfo) {
+        build += `\n • ${key}: ${value}`
+    }
+
+    await client.chat.postEphemeral({
+        channel: command.channel_id,
+        user: command.user_id,
+        text: build,
+    })
+
+    async function buildUser(id) {
         const info = await client.users.info({
-            user: user[1]
+            user: id
         })
+
         requestedInfo.push(
             ["ID", info.user.id],
             ["Username", info.user.name],
@@ -63,22 +89,11 @@ app.command('/info', async ({ ack, command, client }) => {
                 "Member"
             ]
         )
-    } else if (usergroup) {
-        const info = await client.usergroups.users.list({
-            usergroup: usergroup[1]
-        })
+    }
 
-        requestedInfo.push(
-            ["ID", usergroup[1]],
-            ["Members", ""],
-        )
-
-        for (const user of info.users) {
-            requestedInfo.push([`<@${user}>`, user])
-        }
-    } else if (channel) {
+    async function buildChannel(id) {
         const info = await client.conversations.info({
-            channel: channel[1]
+            channel: id
         })
 
         requestedInfo.push(
@@ -89,25 +104,30 @@ app.command('/info', async ({ ack, command, client }) => {
             ["Description", info.channel.purpose.value],
             ["Previous Names", info.channel.previous_names.join(', ')]
         )
-    } else {
-        return client.chat.postEphemeral({
+    }
+
+    async function buildUsergroup(id) {
+        const info = await client.usergroups.users.list({
+            usergroup: id
+        })
+
+        requestedInfo.push(
+            ["ID", id],
+            ["Members", ""],
+        )
+
+        for (const user of info.users) {
+            requestedInfo.push([`<@${user}>`, user])
+        }
+    }
+
+    async function fail() {
+        await client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text: "Command parse error. Make sure you mention a @username, @usergroup, or #channel"
         })
     }
-
-    let build = "Info:\n"
-
-    for (const [key, value] of requestedInfo) {
-        build += `\n • ${key}: ${value}`
-    }
-
-    await client.chat.postEphemeral({
-        channel: command.channel_id,
-        user: command.user_id,
-        text: build,
-    })
 })
 
 async function main() {
