@@ -1,6 +1,6 @@
 const { App } = require('@slack/bolt')
 const crypto = require("crypto")
-const { PrismaClient } = require("./prisma/client")
+const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 const app = new App({
