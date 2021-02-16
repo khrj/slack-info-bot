@@ -1,6 +1,23 @@
-# Slack Info Bot
-
-<a href="https://infobot.khushrajrathod.com"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+<div align="center">
+    <img src="assets/logo.svg" width="350" height="350" alt="Info icon">
+    <h1>Slack Developer Info</h1>
+    <p>
+        <b>Developer oriented bot that prints information about a @user, @usergroup or #channel</b>
+    </p>
+    <p>
+        <img alt="language" src="https://img.shields.io/github/languages/top/KhushrajRathod/SlackInfoBot" >
+        <img alt="code size" src="https://img.shields.io/github/languages/code-size/KhushrajRathod/SlackInfoBot">
+        <img alt="issues" src="https://img.shields.io/github/issues/KhushrajRathod/SlackInfoBot" >
+        <img alt="license" src="https://img.shields.io/github/license/KhushrajRathod/SlackInfoBot?color=green">
+    </p>
+    <p>   
+        <!-- Add to slack -->
+        <a href="https://infobot.khushrajrathod.com"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+    </p>
+    <br>
+    <br>
+    <br>
+</div>
 
 # Commands
 
