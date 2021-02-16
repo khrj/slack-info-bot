@@ -19,11 +19,17 @@
     <br>
 </div>
 
-# Commands
+## Commands
 
 - **/info** _@user_ - View info about a user
 - **/info** _@usergroup_ - View info about a usergroup
 - **/info** _#channel_ - View info about a channel
+
+## Supporters
+
+[![Stargazers repo roster for @KhushrajRathod/SlackInfoBot](https://reporoster.com/stars/KhushrajRathod/SlackInfoBot)](https://github.com/KhushrajRathod/SlackInfoBot/stargazers)
+
+[![Forkers repo roster for @KhushrajRathod/SlackInfoBot](https://reporoster.com/forks/KhushrajRathod/SlackInfoBot)](https://github.com/KhushrajRathod/SlackInfoBot/network/members)
 
 ## Related
 
