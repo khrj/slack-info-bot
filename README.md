@@ -24,3 +24,8 @@
 - **/info** _@user_ - View info about a user
 - **/info** _@usergroup_ - View info about a usergroup
 - **/info** _#channel_ - View info about a channel
+
+## Related
+
+- [Lightning Delete](https://github.com/KhushrajRathod/LightningDelete)
+- [Bolt Cross Workspace Starter](https://github.com/KhushrajRathod/BoltCrossWorkspaceStarter)
