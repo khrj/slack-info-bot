@@ -1,13 +1,13 @@
-const { App } = require('@slack/bolt')
-const crypto = require("crypto")
-const { PrismaClient } = require("@prisma/client")
+import { App } from '@slack/bolt'
+import { randomBytes } from "crypto"
+import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 const app = new App({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
     clientId: process.env.SLACK_CLIENT_ID,
     clientSecret: process.env.SLACK_CLIENT_SECRET,
-    stateSecret: crypto.randomBytes(20).toString('hex'),
+    stateSecret: randomBytes(20).toString('hex'),
     scopes: ["chat:write", "chat:write.public", "commands", "channels:read", "usergroups:read", "users:read"],
     installerOptions: { installPath: '/' },
     installationStore: {
@@ -67,8 +67,8 @@ app.command('/info', async ({ ack, command, client }) => {
         text: build,
     })
 
-    async function buildUser(id) {
-        const info = await client.users.info({
+    async function buildUser(id: string) {
+        const info: any = await client.users.info({
             user: id
         })
 
@@ -91,8 +91,8 @@ app.command('/info', async ({ ack, command, client }) => {
         )
     }
 
-    async function buildChannel(id) {
-        const info = await client.conversations.info({
+    async function buildChannel(id: string) {
+        const info: any = await client.conversations.info({
             channel: id
         })
 
@@ -106,8 +106,8 @@ app.command('/info', async ({ ack, command, client }) => {
         )
     }
 
-    async function buildUsergroup(id) {
-        const info = await client.usergroups.users.list({
+    async function buildUsergroup(id: string) {
+        const info: any = await client.usergroups.users.list({
             usergroup: id
         })
 
@@ -131,7 +131,7 @@ app.command('/info', async ({ ack, command, client }) => {
 })
 
 async function main() {
-    await app.start(process.env.PORT || 3000)
+    await app.start(process.env.PORT ? parseInt(process.env.PORT) : 3000)
     console.log('⚡️ Bolt app is running!')
 }
 
