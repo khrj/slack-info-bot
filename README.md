@@ -25,6 +25,11 @@
 - **/info** _@usergroup_ - View info about a usergroup
 - **/info** _#channel_ - View info about a channel
 
+## Demo
+
+![Demo of application](assets/demo.gif)
+
+
 ## Supporters
 
 [![Stargazers repo roster for @KhushrajRathod/SlackInfoBot](https://reporoster.com/stars/KhushrajRathod/SlackInfoBot)](https://github.com/KhushrajRathod/SlackInfoBot/stargazers)
