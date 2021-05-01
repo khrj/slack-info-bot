@@ -12,7 +12,7 @@
     "dependencies": {
         "@prisma/cli": "^2.14.0",
         "@prisma/client": "^2.14.0",
-        "@slack/bolt": "^3.0.0",
+        "@slack/bolt": "^3.3.0",
         "@types/node": "^14.14.28",
         "dotenv": "^8.2.0",
         "ts-node": "^9.1.1",
