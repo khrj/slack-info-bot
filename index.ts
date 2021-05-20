@@ -1,47 +1,49 @@
-import { App } from '@slack/bolt'
-import { randomBytes } from "crypto"
 import { PrismaClient } from "@prisma/client"
+import { App } from "@slack/bolt"
+import { randomBytes } from "crypto"
 const prisma = new PrismaClient()
 
 const app = new App({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
     clientId: process.env.SLACK_CLIENT_ID,
     clientSecret: process.env.SLACK_CLIENT_SECRET,
-    stateSecret: randomBytes(20).toString('hex'),
+    stateSecret: randomBytes(20).toString("hex"),
     scopes: ["chat:write", "chat:write.public", "commands", "channels:read", "usergroups:read", "users:read"],
-    installerOptions: { installPath: '/' },
+    installerOptions: { installPath: "/" },
     installationStore: {
         storeInstallation: async (installation) => {
-            await prisma.workspace.upsert({
-                where: { id: installation.team.id },
-                create: {
-                    id: installation.team.id,
-                    installation: JSON.stringify(installation)
-                },
-                update: {
-                    installation: JSON.stringify(installation)
-                }
-            })
+            if (installation.team) {
+                await prisma.workspace.upsert({
+                    where: { id: installation.team.id },
+                    create: {
+                        id: installation.team.id,
+                        installation: JSON.stringify(installation),
+                    },
+                    update: {
+                        installation: JSON.stringify(installation),
+                    },
+                })
+            }
         },
         fetchInstallation: async (InstallQuery) => {
             const workspace = await prisma.workspace.findUnique({
                 where: {
-                    id: InstallQuery.teamId
-                }
+                    id: InstallQuery.teamId,
+                },
             })
-            return JSON.parse(workspace.installation)
+            return JSON.parse(workspace!.installation)
         },
     },
 })
 
-app.command('/info', async ({ ack, command, client }) => {
+app.command("/info", async ({ ack, command, client }) => {
     ack()
     const user = command.text.match(/(?:<|&lt;)@(.*)\|.*(?:>|&gt;)/)
     const usergroup = command.text.match(/(?:<|&lt;)\!subteam\^(.*)\|.*(?:>|&gt;)/)
     const channel = command.text.match(/(?:<|&lt;)#(.*)\|.*(?:>|&gt;)/)
     const fromID = command.text.match(/^(.).*$/)
 
-    let requestedInfo = []
+    let requestedInfo: [string, unknown][] = []
 
     if (user) await buildUser(user[1])
     else if (usergroup) await buildUsergroup(usergroup[1])
@@ -69,7 +71,7 @@ app.command('/info', async ({ ack, command, client }) => {
 
     async function buildUser(id: string) {
         const info: any = await client.users.info({
-            user: id
+            user: id,
         })
 
         requestedInfo.push(
@@ -78,22 +80,23 @@ app.command('/info', async ({ ack, command, client }) => {
             ["Real name", info.user.real_name],
             ["Timezone", `${info.user.tz}, ${info.user.tz_label}`],
             ["Display name", info.user.profile.display_name],
-            ["Permissions",
-                (info.user.is_bot && "Bot") ||
-                (info.user.is_app_user && "App") ||
-                (info.user.is_ultra_restricted && "Single Channel Guest") ||
-                (info.user.is_restricted && "Multi Channel Guest") ||
-                (info.user.is_primary_owner && "Primary Workspace Owner") ||
-                (info.user.is_owner && "Workspace Owner") ||
-                (info.user.is_admin && "Workspace Admin") ||
-                "Member"
-            ]
+            [
+                "Permissions",
+                (info.user.is_bot && "Bot")
+                || (info.user.is_app_user && "App")
+                || (info.user.is_ultra_restricted && "Single Channel Guest")
+                || (info.user.is_restricted && "Multi Channel Guest")
+                || (info.user.is_primary_owner && "Primary Workspace Owner")
+                || (info.user.is_owner && "Workspace Owner")
+                || (info.user.is_admin && "Workspace Admin")
+                || "Member",
+            ],
         )
     }
 
     async function buildChannel(id: string) {
         const info: any = await client.conversations.info({
-            channel: id
+            channel: id,
         })
 
         requestedInfo.push(
@@ -102,13 +105,13 @@ app.command('/info', async ({ ack, command, client }) => {
             ["Creator", `<@${info.channel.creator}>`],
             ["Topic", info.channel.topic.value],
             ["Description", info.channel.purpose.value],
-            ["Previous Names", info.channel.previous_names.join(', ')]
+            ["Previous Names", info.channel.previous_names.join(", ")],
         )
     }
 
     async function buildUsergroup(id: string) {
         const info: any = await client.usergroups.users.list({
-            usergroup: id
+            usergroup: id,
         })
 
         requestedInfo.push(
@@ -125,14 +128,14 @@ app.command('/info', async ({ ack, command, client }) => {
         await client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
-            text: "Command parse error. Make sure you mention a @username, @usergroup, or #channel"
+            text: "Command parse error. Make sure you mention a @username, @usergroup, or #channel",
         })
     }
 })
 
 async function main() {
     await app.start(process.env.PORT ? parseInt(process.env.PORT) : 3000)
-    console.log('⚡️ Bolt app is running!')
+    console.log("⚡️ Bolt app is running!")
 }
 
 main()
