@@ -10,7 +10,7 @@
     "author": "Khushraj Rathod",
     "license": "GPL-3.0",
     "dependencies": {
-        "@prisma/cli": "^2.14.0",
+        "@prisma/cli": "^2.20.1",
         "@prisma/client": "^2.23.0",
         "@slack/bolt": "^3.3.0",
         "@types/node": "^15.0.1",
