@@ -1,6 +1,6 @@
 {
     "name": "info-bot",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "index.js",
     "scripts": {
         "dev": "ts-node -r dotenv/config index.ts",
@@ -12,7 +12,7 @@
     "dependencies": {
         "@prisma/client": "^2.23.0",
         "@slack/bolt": "^3.3.0",
-        "dotenv": "^9.0.2"
+        "dotenv": "^10.0.0"
     },
     "devDependencies": {
         "@types/node": "15.3.1",
