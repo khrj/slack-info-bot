@@ -5,10 +5,10 @@
         <b>Developer oriented bot that prints information about a @user, @usergroup or #channel</b>
     </p>
     <p>
-        <img alt="language" src="https://img.shields.io/github/languages/top/KhushrajRathod/SlackInfoBot" >
-        <img alt="code size" src="https://img.shields.io/github/languages/code-size/KhushrajRathod/SlackInfoBot">
-        <img alt="issues" src="https://img.shields.io/github/issues/KhushrajRathod/SlackInfoBot" >
-        <img alt="license" src="https://img.shields.io/github/license/KhushrajRathod/SlackInfoBot?color=green">
+        <img alt="language" src="https://img.shields.io/github/languages/top/khrj/slack-info-bot" >
+        <img alt="code size" src="https://img.shields.io/github/languages/code-size/khrj/slack-info-bot">
+        <img alt="issues" src="https://img.shields.io/github/issues/khrj/slack-info-bot" >
+        <img alt="license" src="https://img.shields.io/github/license/khrj/slack-info-bot?color=green">
     </p>
     <p>   
         <!-- Add to slack -->
@@ -32,11 +32,11 @@
 
 ## Supporters
 
-[![Stargazers repo roster for @KhushrajRathod/SlackInfoBot](https://reporoster.com/stars/KhushrajRathod/SlackInfoBot)](https://github.com/KhushrajRathod/SlackInfoBot/stargazers)
+[![Stargazers repo roster for @khrj/slack-info-bot](https://reporoster.com/stars/khrj/slack-info-bot)](https://github.com/khrj/slack-info-bot/stargazers)
 
-[![Forkers repo roster for @KhushrajRathod/SlackInfoBot](https://reporoster.com/forks/KhushrajRathod/SlackInfoBot)](https://github.com/KhushrajRathod/SlackInfoBot/network/members)
+[![Forkers repo roster for @khrj/slack-info-bot](https://reporoster.com/forks/khrj/slack-info-bot)](https://github.com/khrj/slack-info-bot/network/members)
 
 ## Related
 
-- [Lightning Delete](https://github.com/KhushrajRathod/LightningDelete)
-- [Bolt Cross Workspace Starter](https://github.com/KhushrajRathod/BoltCrossWorkspaceStarter)
+- [Lightning Delete](https://github.com/khrj/lightning-delete)
+- [Bolt Cross Workspace Starter](https://github.com/khrj/bolt-cross-workspace-starter)
